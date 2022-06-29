@@ -22,7 +22,7 @@ class Book {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[Title: " + this.title + " | Genre: " + this.genre + " | Pages: " + this.numPages + "]";
     }
 

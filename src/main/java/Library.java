@@ -16,6 +16,7 @@ class Library {
             }
             System.out.println("Added Book ===> " + book);
             System.out.println("Repository ===> " + books);
+            System.out.println("====================================");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -27,6 +28,11 @@ class Library {
         } catch (Exception e) {
             System.err.println( "Book you are looking for does not exist" );
         }
+    }
+
+    @Override
+    public String toString() {
+        return books.toString();
     }
 
 }
