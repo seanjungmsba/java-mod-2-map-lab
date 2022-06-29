@@ -5,7 +5,7 @@ class Runner {
     private static String title, genre;
     private static int pageNum; 
 
-    public static void showOptions(Scanner sc) {
+    public static void selectOptions(Scanner sc) {
         System.out.println("Type 'a' to add a book, 's' to search the book by title, or simply press [ENTER] to end the program");
         try {
             String userInput = sc.nextLine().trim().toLowerCase();
@@ -28,7 +28,6 @@ class Runner {
     }
 
     public static void addBook(Scanner sc) {
-
         try {
             String input;
             String[][] bookDescriptions = {
@@ -70,12 +69,6 @@ class Runner {
             } // end of while-loop
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-    
-    public static void askOptions(Scanner sc) {
-        while(true){
-            showOptions(sc);
         }
     }
     
