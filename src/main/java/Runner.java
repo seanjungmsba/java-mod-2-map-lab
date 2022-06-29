@@ -6,13 +6,13 @@ class Runner {
     private static int pageNum; 
 
     public static void showOptions(Scanner sc) {
-        System.out.println("Type 's' to search, 'a' to add, or simply press [ENTER] to end the program");
+        System.out.println("Type 'a' to add a book, 's' to search the book by title, or simply press [ENTER] to end the program");
         try {
             String userInput = sc.nextLine().trim().toLowerCase();
-            if (userInput.equals("s")) {
-                getTitle(sc);
-            } else if (userInput.equals("a")) {
+            if (userInput.equals("a")) {
                 addBook(sc);  
+            } else if (userInput.equals("s")) {
+                getTitle(sc);
             } else {
                 System.exit(0);
                 return;  
@@ -35,29 +35,42 @@ class Runner {
                 {"title", "Book Title: "},
                 {"genre","Book Genre: "},
                 {"pageNum", "Number of Pages: "}};
-            for (String[] description: bookDescriptions) {
-                System.out.print(description[1]);
-                input = sc.nextLine().trim();
-    
-                // if user ENTERS, quit the program
-                if(input.equals("")) {
-                    return;
+            int counter = 0; // tracks the number of books in a library
+            boolean processing = true;
+
+            while (processing) {
+                for (String[] description: bookDescriptions) {
+                    System.out.print(description[1]); // sequentially prints out Book Title, Book Genre, and Number of Pages
+                    try {
+                        input = sc.nextLine().trim();
+                        if (input.equals("")) { // if user ENTERS, quit the program
+                            return;
+                        }
+                        // assign title, genre, and pageNum based on user inputs
+                        if (description[0].equals("title")) {
+                            title = input;
+                        } else if (description[0].equals("genre")) {
+                            genre = input;
+                        } else if (description[0].equals("pageNum")) {
+                            pageNum = Integer.parseInt(input);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } // end of for-loop
+                counter++;
+                Book book = new Book(title, genre, pageNum); // instantiating new Book object based on user input
+                
+                if (counter == 1) {
+                    System.out.println("(Currently, library only has " + counter + " book)");
+                } else {
+                    System.out.println("(Library now has " + counter + " books)");
                 }
-                // assign title, genre, and pageNum based on user inputs
-                if (description[0] == "title") {
-                    title = input;
-                } else if (description[0] == "genre") {
-                    genre = input;
-                } else if (description[0] == "pageNum") {
-                    pageNum = Integer.parseInt(input);
-                }
-            }
-            Book book = new Book(title, genre, pageNum); // instantiate new Book object based on user input
-            Library.addBook(book); // add instantiated Book object into Library
+                Library.addBook(book); // adding instantiated Book object into Library
+            } // end of while-loop
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     
     public static void askOptions(Scanner sc) {
